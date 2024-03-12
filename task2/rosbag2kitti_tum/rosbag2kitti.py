@@ -7,7 +7,7 @@ def write_kitti_format_file(output_filename, kitti_data):
         for transform_matrix in kitti_data:
             # Only take the 3x4 part of the transformation matrix
             kitti_matrix = transform_matrix[:3, :]
-            # Convert the matrix to a string format, space-separated
+            # Convert the matrix to a string format
             kitti_format = ' '.join(map('{:.12e}'.format, kitti_matrix.flatten()))
             f.write(kitti_format + '\n')
 
@@ -18,7 +18,7 @@ def main(bag_file, output_filename):
     for topic, msg, t in bag.read_messages(topics=['/tf']):
         for transform in msg.transforms:
             if transform.header.frame_id == 'world' and transform.child_frame_id == 'base_link':
-                # Extract the quaternion
+                # Extract the rotation
                 quaternion = np.array([
                     transform.transform.rotation.x,
                     transform.transform.rotation.y,
@@ -47,4 +47,5 @@ def main(bag_file, output_filename):
 from tf.transformations import quaternion_matrix
 
 if __name__ == '__main__':
-    main('vins_gray_fusion.bag', 'vins_gray_fusion_kitti.txt')
+    # Read rosbag and write data to TUM format file
+    main('vins_gray_fusion.bag', 'vins_gray_fusion_kitti123.txt') # rosbag file, output file

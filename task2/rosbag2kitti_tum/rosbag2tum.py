@@ -1,6 +1,4 @@
-import rospy
 import rosbag
-from tf2_msgs.msg import TFMessage
 import transformations
 import numpy as np
 
@@ -17,7 +15,7 @@ def main(bag_file, output_filename):
     for topic, msg, t in bag.read_messages(topics=['/tf']):
         for transform in msg.transforms:
             if transform.header.frame_id == 'world' and transform.child_frame_id == 'base_link':
-                # 转换四元数到矩阵
+                # Convert quaternion to matrix
                 quaternion = [
                     transform.transform.rotation.x,
                     transform.transform.rotation.y,
@@ -34,24 +32,25 @@ def main(bag_file, output_filename):
                     transformations.quaternion_matrix(quaternion)
                 )
                 
-                # 提取平移和四元数
+                # Extract the translation and quaternion
                 trans = transformations.translation_from_matrix(mat_world_to_base_link)
                 rot = transformations.quaternion_from_matrix(mat_world_to_base_link)
 
-                # 转换时间戳格式
+                # Convert timestamp format
                 time = transform.header.stamp.to_sec()
                 if start_time is None:
                     start_time = time
-                # 重置时间戳使得它从0开始
+                # Reset the timestamp so that it starts at 0
                 time -= start_time
 
-                # 添加到数据中
+                # Add to data list
                 tum_data.append([time] + list(trans) + list(rot))
 
-    # 将TUM格式数据写入文件
+    # Write TUM format data to a file
     write_tum_format_file(output_filename, tum_data)
 
     bag.close()
 
 if __name__ == '__main__':
-    main('vins_gray_fusion.bag', 'vins_gray_fusion_tum.txt')
+    # Read rosbag and write data to TUM format file
+    main('vins_gray_fusion.bag', 'vins_gray_fusion_tum123.txt') # rosbag file, output file
