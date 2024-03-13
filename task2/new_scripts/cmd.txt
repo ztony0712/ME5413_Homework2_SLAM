@@ -1,0 +1,4 @@
+帮我用python直接将carto_3dlidar.bag中的每一行位置关系读取出来（使用python rosbag包直接读，不play rosbag），经过计算得到想要的姿态关系并输出到tum格式的txt文件。rosbag中有tf和tf_static两个topics，脚本首先需要从tf_static中获取camera_gray_left到imu_link的姿态，再获取imu_link到base_link的姿态。这将获得一个camera_gray_left到base_link的姿态。这时候再从tf中获取base_link到world，world到map的姿态。最终期望输出到文件中的为camera_gray_left到map的姿态。帮我写出完整能够直接运行的python代码，不用作其他解释，直接写代码
+evo_ape tum have_fun_tum.txt lego-loam_tum.txt -r full --plot --plot_mode xz
+
+carto_3dlidar
