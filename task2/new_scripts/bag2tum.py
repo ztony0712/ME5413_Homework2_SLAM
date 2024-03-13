@@ -67,7 +67,7 @@ class Converter:
             pose.pose.orientation.z,
             pose.pose.orientation.w
         )
-        self.file.write(f"{time} {-pose.pose.position.y} {pose.pose.position.z} {pose.pose.position.x} {msg_quaternion[0]} {msg_quaternion[1]} {msg_quaternion[2]} {msg_quaternion[3]}\n")
+        self.file.write(f"{time} {-pose.pose.position.x} {pose.pose.position.y} {pose.pose.position.z} {msg_quaternion[0]} {msg_quaternion[1]} {msg_quaternion[2]} {msg_quaternion[3]}\n")
 
     def run(self):
         self.file.close()
