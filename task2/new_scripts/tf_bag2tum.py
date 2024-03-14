@@ -85,11 +85,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('bag_path', help='Input the path of the target rosbag')
     parser.add_argument('txt_path', help='Input the path of the target txt file')
-    parser.add_argument('--odom_topic', default='/tf', help='Odom topic name in the bag file')
+    parser.add_argument('--tf_topic', default='/tf', help='Odom topic name in the bag file')
     parser.add_argument('--body_frame', default='imu_link', help='body tf frame name')
     parser.add_argument('--camera_frame', default='camera_gray_left', help='camera tf frame name')
     parser.add_argument('--map_frame', default='world', help='map tf frame name')
     args = parser.parse_args()
 
-    node = Converter(args.bag_path, args.txt_path, args.odom_topic, args.body_frame, args.camera_frame, args.map_frame)
+    node = Converter(args.bag_path, args.txt_path, args.tf_topic, args.body_frame, args.camera_frame, args.map_frame)
     node.run()
