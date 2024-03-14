@@ -1,3 +1,0 @@
-evo_ape tum have_fun_tum.txt carto_3dlidar_tum.txt -r full -va --plot --plot_mode xz
-
-evo_ape kitti have_fun_kitti.txt carto_3dlidar_kitti.txt -r full -va --plot --plot_mode xz
